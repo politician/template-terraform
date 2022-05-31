@@ -2,7 +2,7 @@
 
 1. Search/replace for these variables:
 
-   - `{{repo_user}}` (GitHub repo username)
+   - `{{repo_owner}}` (GitHub repo username)
    - `{{repo_name}}` (GitHub repo name)
    - `{{project_name}}` (Project name)
    - `{{security_email}}` (Email to send vulnerabilities with `-noreply` somewhere)
@@ -19,6 +19,7 @@ Some GitHub Actions bundled in this template require a personal access token (PA
     - **Pull requests**: Read-only
 
 2. Set the `GH_APP_ID` and `GH_APP_PRIVATE_KEY` repo secrets.
+3. Install the app to your repository (click `Install App` on the left menu of the app page)
 
 ### From a user
 

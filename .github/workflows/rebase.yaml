@@ -22,10 +22,13 @@ jobs:
     steps:
       - name: Generate app token
         id: generate_token
-        uses: tibdex/github-app-token@c95b1c441a4dacd6d24f231b9697a5f9a04c607e
+        uses: peter-murray/workflow-application-token-action@e8782d687a306fb13d733244d0f2a50e272d3752
         with:
-          app_id: ${{ secrets.GH_APP_ID }}
-          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          application_id: ${{ secrets.GH_APP_ID }}
+          application_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          permissions: contents:write, pull_requests:read
+          # Uncomment if the app is installed at the organization level
+          # organization: ${{ github.repository_owner }}
 
       - name: Checkout the latest code
         uses: actions/checkout@v3
