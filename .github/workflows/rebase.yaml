@@ -1,0 +1,41 @@
+name: rebase
+
+permissions:
+  contents: write
+  pull-requests: read
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    name: Automatic Rebase
+    if: >-
+      github.event.issue.pull_request != '' && 
+      (
+        contains(github.event.comment.body, '/rebase') || 
+        contains(github.event.comment.body, '/autosquash')
+      )
+
+    steps:
+      - name: Generate app token
+        id: generate_token
+        uses: tibdex/github-app-token@c95b1c441a4dacd6d24f231b9697a5f9a04c607e
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Checkout the latest code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Automatic Rebase
+        uses: cirrus-actions/rebase@1.7
+        with:
+          autosquash: ${{ contains(github.event.comment.body, '/autosquash') || contains(github.event.comment.body, '/rebase-autosquash') }}
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}

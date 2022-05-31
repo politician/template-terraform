@@ -1,0 +1,68 @@
+name: Bug report
+description:  Report an issue with {{project_name}}
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before** opening a new bug report, please search for relevant keywords in the [existing issues](../issues) so you do not submit a duplicate report.
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Summary
+      description: A clear description of what the bug is.
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Expected behavior
+      description: A brief description of what you expected to happen.
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Actual behavior
+      description: A brief description of what actually happened.
+
+  - type: textarea
+    validations:
+      required: true
+    attributes:
+      label: Steps to reproduce
+      description: |
+        Steps to reproduce the problem.
+      placeholder: |
+        Please include as much details as possible so we can reproduce the bug and fix it quickly.
+
+  # - type: input
+  #   validations:
+  #     required: true
+  #   attributes:
+  #     label: Project version
+  #     description: Run `PROJECT --version`. If not applicable, write `N/A`.
+
+  - type: textarea
+    attributes:
+      label: Environment
+      description: |
+        Any relevant details about the version of {{project_name}} you are using, OS, browser, etc.
+
+  - type: textarea
+    attributes:
+      label: Possible solution
+      description: |
+        You can include any possible solution you can think of to fix the bug. You can be technical.
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched for similar requests in the [existing issues](https://github.com/{{repo_owner}}/{{repo_name}}/issues)
+          required: true
+        - label: I agree to follow this project's [Code of Conduct](https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/docs/CODE_OF_CONDUCT.md)
+          required: true
