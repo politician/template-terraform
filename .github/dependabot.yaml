@@ -1,0 +1,40 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - update-types:
+          ["version-update:semver-major", "version-update:semver-minor"]
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "patch-version-update"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "07:00"
+    ignore:
+      - update-types:
+          ["version-update:semver-major", "version-update:semver-patch"]
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "minor-version-update"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "07:00"
+    ignore:
+      - update-types:
+          ["version-update:semver-minor", "version-update:semver-patch"]
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "major-version-update"

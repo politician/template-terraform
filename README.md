@@ -31,3 +31,16 @@ Some GitHub Actions bundled in this template require a personal access token (PA
 3. Look into each file in [.github/workflows](.github/workflows):
     - Remove every step called `Generate app token`
     - Replace `${{ steps.generate_token.outputs.token }}` with `${{ secrets.GH_PERSONAL_TOKEN }}`
+
+## Dependency updates
+
+You can pick between [Dependabot](https://docs.github.com/en/code-security/dependabot) or [Renovate](https://docs.renovatebot.com/) for your dependency updates.
+
+### Dependabot
+
+Just remove the file `.github/renovate.json`
+
+### Renovate
+
+1. [Install it](https://docs.renovatebot.com/getting-started/running/#running-renovate)
+2. Remove the file `.github/dependabot.yaml`

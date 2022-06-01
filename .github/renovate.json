@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "config:base",
+    "schedule:daily"
+  ],
+  "labels": ["dependencies"],
+  "github-actions": {
+    "enabled": true,
+    "addLabels": ["github-actions"]
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": false,
+      "addLabels": ["patch-version-update"]
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "automerge": false,
+      "addLabels": ["minor-version-update"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "addLabels": ["major-version-update"]
+    }
+  ],
+  "platformAutomerge": true
+}
