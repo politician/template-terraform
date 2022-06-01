@@ -2,10 +2,10 @@
 
 1. Search/replace for these variables:
 
-   - `{{repo_owner}}` (GitHub repo username)
-   - `{{repo_name}}` (GitHub repo name)
+   - `{{repo_owner}}` (GitHub repository username)
+   - `{{repo_name}}` (GitHub repository name)
    - `{{project_name}}` (Project name)
-   - `{{security_email}}` (Email to send vulnerabilities with `-noreply` somewhere)
+   - `{{security_email}}` (Email to send vulnerabilities add `-noreply` before the `@`)
 
 ## GitHub Actions
 
@@ -19,14 +19,14 @@ Some GitHub Actions bundled in this template require a personal access token (PA
     - **Issues**: Read and write
     - **Pull requests**: Read and write
 
-2. Set the `GH_APP_ID` and `GH_APP_PRIVATE_KEY` repo secrets.
+2. Set the `GH_APP_ID` and `GH_APP_PRIVATE_KEY` repository secrets.
 3. Install the app to your repository (click `Install App` on the left menu of the app page)
 
 ### From a user
 
 1. [Create a personal access token](https://github.com/settings/tokens/new?scopes=repo) with the `repo` permissions.
 
-2. Set the `GH_PERSONAL_TOKEN` repo secret.
+2. Set the `GH_PERSONAL_TOKEN` repository secret.
 
 3. Look into each file in [.github/workflows](.github/workflows):
     - Remove every step called `Generate app token`

@@ -25,7 +25,7 @@ If you are using {{project_name}} in one way or another, credits are always welc
 ### Report Bugs
 
 If you found a bug, thank you for taking the time to report it 🙏
-To do so, just [open an issue](https://github.com/{{repo_owner}}/{{repo_name}}/issues/new) and give as much information as you can about the bug you found and how to reproduce it.
+To do so, just [open an issue](https://github.com/{{repo_owner}}/{{repo_name}}/issues/new?template=bug_report.yaml) and give as much information as you can about the bug you found and how to reproduce it.
 
 If you know this is a quick fix, you can apply the labels `good first issue` and `easy` so programmers new to {{project_name}} can find it easily to resolve it.
 
@@ -45,7 +45,7 @@ We follow the [GitHub Flow](https://guides.github.com/introduction/flow/).
 
 Here is the process:
 
-1. [Fork this repo](https://github.com/{{repo_owner}}/{{repo_name}}/fork)
+1. [Fork this repository](https://github.com/{{repo_owner}}/{{repo_name}}/fork)
 
 2. Clone **your** fork on your workstation
 
@@ -61,7 +61,7 @@ Here is the process:
    git switch -c <branch_name>
    ```
 
-5. Write code and tests for your change then commit them to your branch and push them to your repo.
+5. Write code and tests for your change then commit them to your branch and push them to your repository.
 
    ```sh
    git add .

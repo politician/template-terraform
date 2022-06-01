@@ -12,11 +12,11 @@ For help, please create a new issue on this GitHub repository.
 
 All contributions are welcome! Please see the [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
-![Star this repo](/docs/img/star_repo.gif)
+![Star this repository](/docs/img/star_repo.gif)
 
 ## Fork
 
-If you want to [fork this repo](https://github.com/{{repo_owner}}/{{repo_name}}/fork) and modify it for your own personal/commercial usage, please do so freely, it is [licensed accordingly](LICENSE).
+If you want to [fork this repository](https://github.com/{{repo_owner}}/{{repo_name}}/fork) and modify it for your own personal/commercial usage, please do so freely, it is [licensed accordingly](LICENSE).
 
 > 💡 Consider contributing back your changes if they will benefit the wider community.
 

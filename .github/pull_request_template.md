@@ -35,7 +35,7 @@ What will change as a result of your pull request?
 What types of changes does your code introduce? Put an `x` in all the boxes that apply.
 -->
 
-- [ ] Bug fix
+- [ ] Bugfix
 - [ ] New feature
 - [ ] Breaking change (fix or feature that would cause existing functionality to change)
 
