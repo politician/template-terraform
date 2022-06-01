@@ -1,0 +1,83 @@
+# ----------------------------------------------------------------------------
+# This workflow checks periodically for issues and pull requests which had no 
+# activity in a while and marks them as stale before eventually deleting them.
+# To make the most of it, you should make use of the following labels:
+# - high-priority
+# - medium-priority
+# - low-priority
+# ----------------------------------------------------------------------------
+name: stale
+
+permissions:
+  issues: write
+  pull-requests: write
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every day at 00:00
+    - cron: "0 0 * * *"
+
+jobs:
+  stale:
+    name: Check issues and pull requests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate app token
+        id: generate_token
+        uses: peter-murray/workflow-application-token-action@e8782d687a306fb13d733244d0f2a50e272d3752
+        with:
+          application_id: ${{ secrets.GH_APP_ID }}
+          application_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          permissions: issues:write, pull_requests:write
+          # Uncomment if the app is installed at the organization level
+          # organization: ${{ github.repository_owner }}
+
+      - name: No priority specified
+        uses: actions/stale@v5
+        with:
+          repo-token: ${{ steps.generate_token.outputs.token }}
+          days-before-stale: 60
+          days-before-close: 7
+          stale-issue-message: This issue had no activity for **2 months**. It will be closed in **one week** unless there is some new activity.
+          stale-issue-label: stale
+          exempt-issue-labels: high-priority,medium-priority,low-priority
+          stale-pr-message: This pull request had no activity for **2 months**. It will be closed in **one week** unless there is some new activity.
+          stale-pr-label: stale
+          exempt-pr-labels: high-priority,medium-priority,low-priority
+
+      - name: Low-priority
+        uses: actions/stale@v5
+        with:
+          repo-token: ${{ steps.generate_token.outputs.token }}
+          only-labels: low-priority
+          days-before-stale: 90
+          days-before-close: 7
+          stale-issue-message: This issue had no activity for **3 months**. It will be closed in **one week** unless there is some new activity.
+          stale-issue-label: stale
+          stale-pr-message: This pull request had no activity for **3 months**. It will be closed in **one week** unless there is some new activity.
+          stale-pr-label: stale
+
+      - name: Medium-priority
+        uses: actions/stale@v5
+        with:
+          repo-token: ${{ steps.generate_token.outputs.token }}
+          only-labels: medium-priority
+          days-before-stale: 90
+          days-before-close: 14
+          stale-issue-message: This issue had no activity for **3 months**. It will be closed in **two weeks** unless there is some new activity.
+          stale-issue-label: stale
+          stale-pr-message: This pull request had no activity for **3 months**. It will be closed in **two weeks** unless there is some new activity.
+          stale-pr-label: stale
+
+      - name: High-priority
+        uses: actions/stale@v5
+        with:
+          repo-token: ${{ steps.generate_token.outputs.token }}
+          only-labels: high-priority
+          days-before-stale: 90
+          days-before-close: 21
+          stale-issue-message: This issue had no activity for **3 months**. It will be closed in **three weeks** unless there is some new activity.
+          stale-issue-label: stale
+          stale-pr-message: This pull request had no activity for **3 months**. It will be closed in **three weeks** unless there is some new activity.
+          stale-pr-label: stale

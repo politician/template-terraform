@@ -13,10 +13,11 @@ Some GitHub Actions bundled in this template require a personal access token (PA
 
 ### From an app
 
-1. Create an app [with the minimum permissions](https://github.com/settings/apps/new?&name=-bot&description=Bot%20account&url=https%3A%2F%2Fwww.github.com&user_token_expiration_enabled=true&webhook_active=false&contents=write&pull_requests=read) or add the following permissions to an existing app:
+1. Create an app [with the minimum permissions](https://github.com/settings/apps/new?&name=-bot&description=Bot%20account&url=https%3A%2F%2Fwww.github.com&user_token_expiration_enabled=true&webhook_active=false&contents=write&issues=write&pull_requests=write) or add the following permissions to an existing app:
 
     - **Contents**: Read and write
-    - **Pull requests**: Read-only
+    - **Issues**: Read and write
+    - **Pull requests**: Read and write
 
 2. Set the `GH_APP_ID` and `GH_APP_PRIVATE_KEY` repo secrets.
 3. Install the app to your repository (click `Install App` on the left menu of the app page)
