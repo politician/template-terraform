@@ -1,6 +1,7 @@
 <!---
 IMPORTANT: Please read our contributing guidelines first (https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/docs/CONTRIBUTING.md).
 --->
+
 # Pull request
 
 ## Summary
@@ -41,7 +42,7 @@ What types of changes does your code introduce? Put an `x` in all the boxes that
 
 ## Checklist
 
-<!--- 
+<!---
 Go over all the following points, and put an `x` in all the boxes that apply.
 -->
 

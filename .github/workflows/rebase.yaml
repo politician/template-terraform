@@ -2,6 +2,7 @@
 # This workflow allows users of this repo to automatically
 # rebase their PR by commenting '/rebase' on their PR.
 # --------------------------------------------------------
+---
 name: rebase
 
 permissions:
@@ -26,6 +27,7 @@ jobs:
     steps:
       - name: Generate app token
         id: generate_token
+        # yamllint disable-line rule:line-length
         uses: peter-murray/workflow-application-token-action@e8782d687a306fb13d733244d0f2a50e272d3752
         with:
           application_id: ${{ secrets.GH_APP_ID }}
@@ -43,6 +45,10 @@ jobs:
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@418e518867c393c55df77cb1a4c4001982db51aa
         with:
-          autosquash: ${{ contains(github.event.comment.body, '/autosquash') || contains(github.event.comment.body, '/rebase-autosquash') }}
+          autosquash: >
+            ${{ 
+              contains(github.event.comment.body, '/autosquash') ||
+              contains(github.event.comment.body, '/rebase-autosquash')
+            }}
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}

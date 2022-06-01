@@ -2,6 +2,7 @@
 # This workflow will lint each PR and commit.
 # rebase their PR by commenting '/rebase' on their PR.
 # --------------------------------------------------------
+---
 name: lint
 
 permissions:
@@ -28,6 +29,7 @@ jobs:
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YAML_CONFIG_FILE: ../../../github/workspace/.yamllint.yaml
           # Validate only new/changed files unless this workflow is triggered manually
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
           # Do not run Gitleaks because we are already using TruffleHog

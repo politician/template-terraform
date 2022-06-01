@@ -2,6 +2,7 @@
 # This workflow comments on each new issue with a message
 # explaining how to vote on the issue.
 # --------------------------------------------------------
+---
 name: issue-voting
 
 permissions:
@@ -19,6 +20,7 @@ jobs:
     steps:
       - name: Generate app token
         id: generate_token
+        # yamllint disable-line rule:line-length
         uses: peter-murray/workflow-application-token-action@e8782d687a306fb13d733244d0f2a50e272d3752
         with:
           application_id: ${{ secrets.GH_APP_ID }}
@@ -38,21 +40,32 @@ jobs:
         uses: peter-evans/create-or-update-comment@26f07868647c398ca3d2042238c8aa620ca5d311
         with:
           issue-number: ${{github.event.issue.number}}
-          body: |
+          body: >
             ## Do's
 
-            - Please **do** use the 👍 and 👎 reactions to show your interest.  
+
+            - Please **do** use the 👍 and 👎 reactions to show your interest.
+
             - Please **do** add constructive comments to help the community.
+
             - Please **do** consider contributing with a pull request to resolve this issue.
+
 
             ## Don'ts
 
-            - Please **do not** comment on this issue for the sole purpose of **bumping, asking for a fix, showing your interest, +1, etc.**
+
+            - Please **do not** comment on this issue for the sole purpose of **bumping, asking for
+            a fix, showing your interest, +1, etc.**
+
 
             ## Notifications
 
-            - To be notified when activity occurs **on this issue**, click "**Subscribe**" on the right hand side of this page.
-            - To be notified when activity occurs **on this repo**, give it a ⭐️ and choose your notification preferences under "**Watch**" at the top.
+
+            - To be notified when activity occurs **on this issue**, click "**Subscribe**" on the
+            right hand side of this page.
+
+            - To be notified when activity occurs **on this repo**, give it a ⭐️ and choose your
+            notification preferences under "**Watch**" at the top.
           reactions: eyes
           token: ${{ steps.generate_token.outputs.token }}
 
@@ -60,5 +73,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@26f07868647c398ca3d2042238c8aa620ca5d311
         with:
           issue-number: ${{github.event.issue.number}}
-          body: Thank you @${{ github.event.issue.user.login }} for opening an issue, a maintainer will look at it shortly.
+          body: >
+            Thank you @${{ github.event.issue.user.login }} for opening an issue, a maintainer will
+            look at it shortly.
           token: ${{ steps.generate_token.outputs.token }}

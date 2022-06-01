@@ -1,11 +1,13 @@
+---
 name: Bug report
-description:  Report an issue with {{project_name}}
+description: Report an issue with {{project_name}}
 labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: |
-        **Before** opening a new bug report, please search for relevant keywords in the [existing issues](../issues) so you do not submit a duplicate report.
+      value: >
+        **Before** opening a new bug report, please search for relevant keywords in the
+        [existing issues](../issues) so you do not submit a duplicate report.
 
   - type: textarea
     validations:
@@ -62,7 +64,14 @@ body:
     attributes:
       label: Checklist
       options:
-        - label: I have searched for similar requests in the [existing issues](https://github.com/{{repo_owner}}/{{repo_name}}/issues)
+        - label: >
+            I have searched for similar requests in the
+            [existing issues](https://github.com/{{repo_owner}}/{{repo_name}}/issues)
           required: true
-        - label: I agree to follow this project's [Code of Conduct](https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/docs/CODE_OF_CONDUCT.md)
+
+        # yamllint disable rule:line-length
+        - label: >
+            I agree to follow this project's
+            [Code of Conduct](https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/docs/CODE_OF_CONDUCT.md)
           required: true
+        # yamllint enable rule:line-length

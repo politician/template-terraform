@@ -1,11 +1,14 @@
+---
 name: Feature request
 description: Tell us how {{project_name}} can serve you better
 labels: [enhancement]
 body:
   - type: markdown
     attributes:
-      value: |
-        **Before** opening a new feature request, please search for relevant keywords in the [existing issues](https://github.com/{{repo_owner}}/{{repo_name}}/issues) so you do not submit a duplicate request.
+      value: >
+        **Before** opening a new feature request, please search for relevant keywords in the
+        [existing issues](https://github.com/{{repo_owner}}/{{repo_name}}/issues) so you do not
+        submit a duplicate request.
 
   - type: textarea
     validations:
@@ -19,26 +22,35 @@ body:
       required: true
     attributes:
       label: Use case(s)
-      description: Please describe below the **end goal(s)** that led you to request this feature. Please keep this section focused on the problem and not on the suggested solution (we'll get to that in a moment, below!).
+      description: >
+        Please describe below the **end goal(s)** that led you to request this feature. Please keep
+        this section focused on the problem and not on the suggested solution (we'll get to that in
+        a moment, below!).
 
   - type: textarea
     attributes:
       label: Attempted solutions
-      description: If you've already tried to solve the problem with existing features and found a limitation that prevented you from succeeding, please describe it below in as much detail as possible.
+      description: >
+        If you've already tried to solve the problem with existing features and found a limitation
+        that prevented you from succeeding, please describe it below in as much detail as possible.
 
   - type: textarea
     attributes:
       label: Possible solution
-      description: |
-        If you have an idea for a way to address the problem, please describe it below. You can give usage examples.
-        If you're not sure of some details, don't worry! When we evaluate the feature request we may suggest modifications as necessary to work within the design constraints of the project.
+      description: >
+        If you have an idea for a way to address the problem, please describe it below. You can
+        give usage examples.
+
+        If you're not sure of some details, don't worry! When we evaluate the feature request we
+        may suggest modifications as necessary to work within the design constraints of the project.
 
   - type: textarea
     attributes:
       label: References
-      description: |
-        Are there any other GitHub issues, whether open or closed, that are related to the problem you've described above or to the suggested solution?
-        If so, please create a list below that mentions each of them.
+      description: >
+        Are there any other GitHub issues, whether open or closed, that are related to the problem
+        you've described above or to the suggested solution? If so, please create a list below that
+        mentions each of them.
       placeholder: |
         - #123
         - #456
@@ -48,7 +60,14 @@ body:
     attributes:
       label: Checklist
       options:
-        - label: I have searched for similar requests in the [existing issues](https://github.com/{{repo_owner}}/{{repo_name}}/issues)
+        - label: >
+            I have searched for similar requests in the
+            [existing issues](https://github.com/{{repo_owner}}/{{repo_name}}/issues)
           required: true
-        - label: I agree to follow this project's [Code of Conduct](https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/docs/CODE_OF_CONDUCT.md)
+
+        # yamllint disable rule:line-length
+        - label: >
+            I agree to follow this project's
+            [Code of Conduct](https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/docs/CODE_OF_CONDUCT.md)
           required: true
+        # yamllint enable rule:line-length

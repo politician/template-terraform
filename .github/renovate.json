@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "config:base",
-    "schedule:daily"
-  ],
+  "extends": ["config:base", "schedule:daily"],
   "labels": ["dependencies"],
   "github-actions": {
     "enabled": true,
