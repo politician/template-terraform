@@ -1,0 +1,47 @@
+# --------------------------------------------------------
+# This workflow comments on each new issue with a message
+# explaining how to vote on the issue.
+# --------------------------------------------------------
+name: issue-voting
+
+permissions:
+  issues: write
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    name: Auto-comment
+
+    steps:
+      - name: Generate app token
+        id: generate_token
+        uses: peter-murray/workflow-application-token-action@e8782d687a306fb13d733244d0f2a50e272d3752
+        with:
+          application_id: ${{ secrets.GH_APP_ID }}
+          application_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          permissions: issues:write
+          # Uncomment if the app is installed at the organization level
+          # organization: ${{ github.repository_owner }}
+
+      - name: Add voting reactions to issue
+        uses: aidan-mundy/react-to-issue@b189f43a4686d4183c80c957dbcec07a720be261
+        with:
+          issue-number: ${{ github.event.number }}
+          reactions: +1, -1
+          token: ${{ steps.generate_token.outputs.token }}
+
+      - name: Comment on issue
+        uses: peter-evans/create-or-update-comment@26f07868647c398ca3d2042238c8aa620ca5d311
+        with:
+          issue-number: ${{ github.event.number }}
+          body: |
+            Please **do not** comment on this issue for the sole purpose of bumping or showing your interest.
+            Please **do** use the 👍 and 👎 reactions to show your interest.  
+            Please **do** add constructive comments to help the community.
+            Please **do** consider contributing a PR to resolve this issue 🎉.
+          reactions: eyes
+          token: ${{ steps.generate_token.outputs.token }}
