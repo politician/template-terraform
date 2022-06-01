@@ -1,3 +1,7 @@
+# --------------------------------------------------------
+# This workflow allows users of this repo to automatically
+# rebase their PR by commenting '/rebase' on their PR.
+# --------------------------------------------------------
 name: rebase
 
 permissions:
@@ -37,7 +41,7 @@ jobs:
           fetch-depth: 0
 
       - name: Automatic Rebase
-        uses: cirrus-actions/rebase@1.7
+        uses: cirrus-actions/rebase@418e518867c393c55df77cb1a4c4001982db51aa
         with:
           autosquash: ${{ contains(github.event.comment.body, '/autosquash') || contains(github.event.comment.body, '/rebase-autosquash') }}
         env:
