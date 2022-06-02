@@ -77,7 +77,6 @@ Here is the process:
    > - Capitalize properly
    > - Do not end in a period — this is a title/subject
    > - Prefix the subject with its scope
-   >
 
 6. Open a pull request against this project
 

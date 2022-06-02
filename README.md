@@ -1,6 +1,6 @@
 # USING THIS TEMPLATE
 
-1. Search/replace for these variables:
+1. Search/repleace for these variables:
 
    - `{{repo_owner}}` (GitHub repository username)
    - `{{repo_name}}` (GitHub repository name)
@@ -15,9 +15,9 @@ Some GitHub Actions bundled in this template require a personal access token (PA
 
 1. Create an app [with the minimum permissions](https://github.com/settings/apps/new?&name=-bot&description=Bot%20account&url=https%3A%2F%2Fwww.github.com&user_token_expiration_enabled=true&webhook_active=false&contents=write&issues=write&pull_requests=write) or add the following permissions to an existing app:
 
-    - **Contents**: Read and write
-    - **Issues**: Read and write
-    - **Pull requests**: Read and write
+   - **Contents**: Read and write
+   - **Issues**: Read and write
+   - **Pull requests**: Read and write
 
 2. Set the `GH_APP_ID` and `GH_APP_PRIVATE_KEY` repository secrets.
 3. Install the app to your repository (click `Install App` on the left menu of the app page)
@@ -29,8 +29,8 @@ Some GitHub Actions bundled in this template require a personal access token (PA
 2. Set the `GH_PERSONAL_TOKEN` repository secret.
 
 3. Look into each file in [.github/workflows](.github/workflows):
-    - Remove every step called `Generate app token`
-    - Replace `${{ steps.generate_token.outputs.token }}` with `${{ secrets.GH_PERSONAL_TOKEN }}`
+   - Remove every step called `Generate app token`
+   - Replace `${{ steps.generate_token.outputs.token }}` with `${{ secrets.GH_PERSONAL_TOKEN }}`
 
 ## Dependency updates
 
