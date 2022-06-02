@@ -16,7 +16,7 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     name: Auto-comment
-
+    if: github.event.issue.title != 'Dependency Dashboard'
     steps:
       - name: Generate app token
         id: generate_token
