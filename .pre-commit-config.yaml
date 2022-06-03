@@ -1,0 +1,28 @@
+# -------------------------------------------------------------------------------------------------
+# This file configures pre-commit.
+# For more configuration options, see https://pre-commit.com/#plugins
+# -------------------------------------------------------------------------------------------------
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-added-large-files
+      # - id: no-commit-to-branch
+      #   args: [--branch, main]
+
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v1.2.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+
+  - repo: https://github.com/sirosen/check-jsonschema
+    rev: 0.15.1
+    hooks:
+      - id: check-dependabot
+      - id: check-github-actions
+      - id: check-github-workflows
+      - id: check-renovate

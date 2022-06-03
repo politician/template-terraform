@@ -34,13 +34,15 @@ Some GitHub Actions bundled in this template require a personal access token (PA
 
 ## Dependency updates
 
-You can pick between [Dependabot](https://docs.github.com/en/code-security/dependabot) or [Renovate](https://docs.renovatebot.com/) for your dependency updates.
+You can pick between [Renovate](https://docs.renovatebot.com/) (recommended) or [Dependabot](https://docs.github.com/en/code-security/dependabot) for your dependency updates.
 
-### Dependabot
-
-Just remove the file `.github/renovate.json`
+> Dependabot [won't keep your pre-commit hooks up to date](https://github.com/dependabot/dependabot-core/issues/1524) as opposed to Renovate.
 
 ### Renovate
 
 1. [Install it](https://docs.renovatebot.com/getting-started/running/#running-renovate)
 2. Remove the file `.github/dependabot.yaml`
+
+### Dependabot
+
+Just remove the file `.github/renovate.json`.

@@ -5,6 +5,10 @@
     "enabled": true,
     "addLabels": ["github-actions"]
   },
+  "pre-commit": {
+    "enabled": true,
+    "addLabels": ["pre-commit"]
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],
