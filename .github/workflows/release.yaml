@@ -1,0 +1,36 @@
+# ----------------------------------------------------------------------------
+# This workflow will open a PR with an up-to-date changelog and README.md.
+# The PR can be merged manually at any time which will trigger a new release.
+# ----------------------------------------------------------------------------
+---
+name: release
+
+permissions:
+  contents: write
+  pull-requests: write
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate app token
+        id: generate_token
+        # yamllint disable-line rule:line-length
+        uses: peter-murray/workflow-application-token-action@v1
+        with:
+          application_id: ${{ secrets.GH_APP_ID }}
+          application_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          permissions: contents:write, pull_requests:write
+          # Uncomment if the app is installed at the organization level
+          # organization: ${{ github.repository_owner }}
+
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: terraform-module
+          package-name: ${{ github.event.repository.name }}
+          token: ${{ steps.generate_token.outputs.token }}
