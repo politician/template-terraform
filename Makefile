@@ -208,16 +208,6 @@ docs-run:
 	npx vitepress serve --port 5001
 	@echo
 
-didi:
-# cd .vitepress/dist \
-# & echo $(GITHUB_ACTIONS)
-ifeq ($(GITHUB_ACTIONS),true)
-	@echo lol
-else
-	@echo lul
-endif
-# 
-
 #--------------------------------------------------------------------------------------------------
 # Deploy documentation site
 #--------------------------------------------------------------------------------------------------
