@@ -14,13 +14,13 @@ repos:
       #   args: [--branch, main]
 
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v1.2.0
+    rev: v1.3.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
 
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.15.1
+    rev: 0.16.0
     hooks:
       - id: check-dependabot
       - id: check-github-actions
