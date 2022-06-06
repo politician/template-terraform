@@ -27,7 +27,7 @@ jobs:
       - name: Generate app token
         id: generate_token
         # yamllint disable-line rule:line-length
-        uses: peter-murray/workflow-application-token-action@e8782d687a306fb13d733244d0f2a50e272d3752
+        uses: peter-murray/workflow-application-token-action@v1
         with:
           application_id: ${{ secrets.GH_APP_ID }}
           application_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}

@@ -21,7 +21,7 @@ jobs:
       - name: Generate app token
         id: generate_token
         # yamllint disable-line rule:line-length
-        uses: peter-murray/workflow-application-token-action@e8782d687a306fb13d733244d0f2a50e272d3752
+        uses: peter-murray/workflow-application-token-action@v1
         with:
           application_id: ${{ secrets.GH_APP_ID }}
           application_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
@@ -37,7 +37,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
 
       - name: Comment on issue
-        uses: peter-evans/create-or-update-comment@26f07868647c398ca3d2042238c8aa620ca5d311
+        uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{github.event.issue.number}}
           body: >
@@ -70,7 +70,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
 
       - name: Comment on issue
-        uses: peter-evans/create-or-update-comment@26f07868647c398ca3d2042238c8aa620ca5d311
+        uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{github.event.issue.number}}
           body: >
