@@ -1,0 +1,80 @@
+# --------------------------------------------------------
+# This workflow comments on each new issue with a message
+# explaining how to vote on the issue.
+# --------------------------------------------------------
+---
+name: pr-helper
+
+permissions:
+  pull-requests: write
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    name: Auto-comment
+    if: >
+      !startsWith(github.event.pull_request.title,'chore(deps):') &&
+      !startsWith(github.event.pull_request.title,'fix(deps):')
+    steps:
+      - name: Generate app token
+        id: generate_token
+        # yamllint disable-line rule:line-length
+        uses: peter-murray/workflow-application-token-action@v1
+        with:
+          application_id: ${{ secrets.GH_APP_ID }}
+          application_private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          permissions: pull_requests:write
+          # Uncomment if the app is installed at the organization level
+          # organization: ${{ github.repository_owner }}
+
+      - name: Comment on issue
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{github.event.pull_request.number}}
+          body: >
+            🎉 Thank you for opening a pull request 🎉 
+
+
+            As a reminder, you can rebase it either:
+
+            - From your pull request by commenting `/rebase`
+
+            - From your workstation:
+
+              <details>
+
+              Configure upstream if you haven't done so
+
+              ```sh
+              git remote add upstream git@github.com:${{github.repository}}.git
+              ```
+
+              Ensure you are on your working branch
+
+              ```sh
+              git switch <branch_name>
+              ```
+
+              Pull upstream and rebase your branch
+
+              ```sh
+              git fetch upstream
+              git rebase upstream/main
+              ```
+
+              Force-push your changes because your branch history has been rewritten
+
+              ```sh
+              git push --force origin <branch_name>
+              ```
+
+              </details>
+
+            Read more about our recommended [pull request
+            process](https://github.com/${{github.repository}}/blob/main/docs/CONTRIBUTING.md#pull-request-process).
+          reactions: eyes
+          token: ${{ steps.generate_token.outputs.token }}
