@@ -1,40 +1,31 @@
 ---
 version: 2
 updates:
+  #------------------------------------------------------------------------------------------------
+  # GitHub Actions
+  #------------------------------------------------------------------------------------------------
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
-    ignore:
-      - update-types:
-          ["version-update:semver-major", "version-update:semver-minor"]
     labels:
       - "dependencies"
       - "github-actions"
-      - "patch-version-update"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
 
-  - package-ecosystem: "github-actions"
+  #------------------------------------------------------------------------------------------------
+  # NPM
+  #------------------------------------------------------------------------------------------------
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
-      time: "07:00"
-    ignore:
-      - update-types:
-          ["version-update:semver-major", "version-update:semver-patch"]
     labels:
       - "dependencies"
-      - "github-actions"
-      - "minor-version-update"
-
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "07:00"
-    ignore:
-      - update-types:
-          ["version-update:semver-minor", "version-update:semver-patch"]
-    labels:
-      - "dependencies"
-      - "github-actions"
-      - "major-version-update"
+      - "npm"
+    commit-message:
+      prefix: "fix"
+      prefix-development: "chore"
+      include: "scope"
