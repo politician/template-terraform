@@ -11,6 +11,8 @@
    - `{{security_email}}` (Email to send vulnerabilities add `-noreply` before the `@`)
    - `{{author_name}}` (Your name)
 
+2. Remove this README.md and move docs/README.md to the root
+
 ## GitHub Actions
 
 Some GitHub Actions bundled in this template require a personal access token (PAT). This can be sourced either from an app (recommended) or from a user.
