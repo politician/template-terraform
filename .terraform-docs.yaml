@@ -1,0 +1,25 @@
+# -------------------------------------------------------------------------------------------------
+# This file configures Terraform Docs.
+# For more configuration options, see https://terraform-docs.io/user-guide/configuration/
+# -------------------------------------------------------------------------------------------------
+---
+version: "~> 0.16.0"
+formatter: "markdown table"
+output:
+  file: "README.md"
+  mode: inject
+sort:
+  enabled: true
+  by: required
+sections:
+  show:
+    - requirements
+    - inputs
+    - outputs
+    # - providers
+    # - modules
+    # - resources
+
+recursive:
+  # Enable if there are (non-published) submodules
+  enabled: false

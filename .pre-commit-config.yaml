@@ -26,3 +26,10 @@ repos:
       - id: check-github-actions
       - id: check-github-workflows
       - id: check-renovate
+
+  - repo: https://github.com/gruntwork-io/pre-commit
+    rev: v0.1.17
+    hooks:
+      - id: terraform-fmt
+      - id: terraform-validate
+      - id: tflint

@@ -4,6 +4,13 @@ Project description.
 
 ## Usage
 
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- BEGIN_TF_DOCS -->
+<!-- END_TF_DOCS -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+
 ## Support
 
 For help, please create a new issue on this GitHub repository.
