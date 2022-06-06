@@ -16,6 +16,8 @@ const config: import("vitepress").UserConfig = {
   title: "{{project_name}}",
   description: "{{project_tagline}}",
 
+  base: "/{{repo_name}}/",
+
   // Because we run vitepress from the root directory, we use a "whitelist" mode:
   // Exclude all files except those specified here
   srcExclude: ["!(docs/**|(index|README|CHANGELOG|LICENSE).md)"],

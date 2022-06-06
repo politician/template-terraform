@@ -208,6 +208,16 @@ docs-run:
 	npx vitepress serve --port 5001
 	@echo
 
+didi:
+# cd .vitepress/dist \
+# & echo $(GITHUB_ACTIONS)
+ifeq ($(GITHUB_ACTIONS),true)
+	@echo lol
+else
+	@echo lul
+endif
+# 
+
 #--------------------------------------------------------------------------------------------------
 # Deploy documentation site
 #--------------------------------------------------------------------------------------------------
@@ -216,9 +226,19 @@ docs-deploy: docs-build
 	@echo --------------------------------------------------------------------------------
 	@echo -- Deploying documentation site
 	@echo --------------------------------------------------------------------------------
-	cd .vitepress/dist \
-	&& git init \
-	&& git add -A \
-	&& git commit -m 'chore: deploy documentation site' \
-	&& git push -f $(GIT_URL) main:gh-pages
+ifeq ($(GITHUB_ACTIONS),true)
+	@echo Running in GitHub Actions environment.
+	cd .vitepress/dist\
+	&& git init --initial-branch gh-pages\
+	&& git remote add origin https://x-access-token:$(GITHUB_TOKEN)@github.com/$(GITHUB_REPOSITORY)\
+	&& git add --all\
+	&& git commit --message 'chore: deploy documentation site'\
+	&& git push --force origin gh-pages:gh-pages
+else
+	cd .vitepress/dist\
+	&& git init --initial-branch gh-pages\
+	&& git add --all\
+	&& git commit --message 'chore: deploy documentation site'\
+	&& git push --force $(GIT_URL) gh-pages:gh-pages
+endif
 	@echo
