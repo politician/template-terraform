@@ -6,7 +6,7 @@ JS_INSTALLER := "yarn" # Could be "npm"
 #--------------------------------------------------------------------------------------------------
 # Computed variables
 #--------------------------------------------------------------------------------------------------
-.DEFAULT_GOAL := setup
+.DEFAULT_GOAL := build
 HOMEBREW_INSTALLED := $(shell command -v brew 2> /dev/null)
 JS_INSTALLER_INSTALLED := $(shell command -v $(JS_INSTALLER) 2> /dev/null)
 GIT_URL := $(shell git config --get remote.origin.url)

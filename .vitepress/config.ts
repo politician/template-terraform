@@ -6,6 +6,7 @@ const docsSidebar = [
       { text: "Changelog", link: "/CHANGELOG" },
       { text: "Contributing", link: "/docs/CONTRIBUTING" },
       { text: "Security policy", link: "/docs/SECURITY" },
+      { text: "Code of Conduct", link: "/docs/CODE_OF_CONDUCT" },
       { text: "License", link: "/LICENSE" },
     ],
   },
