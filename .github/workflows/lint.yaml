@@ -34,3 +34,4 @@ jobs:
           VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'workflow_dispatch' }}
           # Do not run Gitleaks because we are already using TruffleHog
           VALIDATE_GITLEAKS: false
+          FILTER_REGEX_EXCLUDE: (LICENSE|CHANGELOG).md

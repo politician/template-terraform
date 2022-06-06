@@ -98,7 +98,7 @@ We also welcome improvements to the documentation. If you want to fix a typo, ad
 
 ## License
 
-By contributing your code, you agree to license your contribution under the terms of our [LICENSE](../LICENSE)
+By contributing your code, you agree to license your contribution under the terms of our [LICENSE.md](https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/LICENSE.md)
 
 ## Code of Conduct
 

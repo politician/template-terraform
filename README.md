@@ -1,11 +1,15 @@
 # USING THIS TEMPLATE
 
-1. Search/repleace for these variables:
+<span v-pre>
+
+1. Search/replace for these variables:
 
    - `{{repo_owner}}` (GitHub repository username)
    - `{{repo_name}}` (GitHub repository name)
    - `{{project_name}}` (Project name)
+   - `{{project_tagline}}` (Project tagline)
    - `{{security_email}}` (Email to send vulnerabilities add `-noreply` before the `@`)
+   - `{{author_name}}` (Your name)
 
 ## GitHub Actions
 
@@ -28,7 +32,8 @@ Some GitHub Actions bundled in this template require a personal access token (PA
 
 2. Set the `GH_PERSONAL_TOKEN` repository secret.
 
-3. Look into each file in [.github/workflows](.github/workflows):
+3. Look into each file in [.github/workflows](https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/.github/workflows):
+
    - Remove every step called `Generate app token`
    - Replace `${{ steps.generate_token.outputs.token }}` with `${{ secrets.GH_PERSONAL_TOKEN }}`
 
@@ -46,3 +51,5 @@ You can pick between [Renovate](https://docs.renovatebot.com/) (recommended) or 
 ### Dependabot
 
 Just remove the file `.github/renovate.json`.
+
+</span>
