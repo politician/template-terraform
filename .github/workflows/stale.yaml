@@ -1,11 +1,11 @@
-# ----------------------------------------------------------------------------
-# This workflow checks periodically for issues and pull requests which had no
-# activity in a while and marks them as stale before eventually deleting them.
-# To make the most of it, you should make use of the following labels:
+# -------------------------------------------------------------------------------------------------
+# This workflow checks periodically for issues and pull requests which had no activity in a while
+# and marks them as stale before eventually deleting them.
+# To make the most of it, you should mark issues and PRs with the following labels:
 # - high-priority
 # - medium-priority
 # - low-priority
-# ----------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
 ---
 name: stale
 

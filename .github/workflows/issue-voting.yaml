@@ -1,7 +1,7 @@
-# --------------------------------------------------------
-# This workflow comments on each new issue with a message
-# explaining how to vote on the issue.
-# --------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
+# This workflow comments on each new issue with a message explaining how to behave and vote on
+# the issue.
+# -------------------------------------------------------------------------------------------------
 ---
 name: issue-voting
 

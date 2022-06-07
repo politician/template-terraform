@@ -1,7 +1,6 @@
-# --------------------------------------------------------
-# This workflow comments on each new issue with a message
-# explaining how to vote on the issue.
-# --------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
+# This workflow comments on each new PR with a link to explain the PR process.
+# -------------------------------------------------------------------------------------------------
 ---
 name: pr-helper
 

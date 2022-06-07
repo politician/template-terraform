@@ -1,7 +1,7 @@
-# --------------------------------------------------------
-# This workflow will lint each PR and commit.
-# rebase their PR by commenting '/rebase' on their PR.
-# --------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
+# This workflow deploys the documentation site on GitHub Pages.
+# The site is accessible on https://{{repo_owner}}.github.io/{{repo_name}}
+# -------------------------------------------------------------------------------------------------
 ---
 name: deploy-docs
 

@@ -1,7 +1,6 @@
-# --------------------------------------------------------
-# This workflow allows users of this repo to automatically
-# rebase their PR by commenting '/rebase' on their PR.
-# --------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
+# This workflow allows users of this repo to automatically rebase their PR.
+# -------------------------------------------------------------------------------------------------
 ---
 name: rebase
 
