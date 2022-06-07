@@ -75,6 +75,6 @@ jobs:
               </details>
 
             Read more about our recommended [pull request
-            process](https://github.com/${{github.repository}}/blob/main/docs/CONTRIBUTING.md#pull-request-process).
+            process]({{docs_base_url}}/docs/CONTRIBUTING.{{docs_extension}}#pull-request-process).
           reactions: eyes
           token: ${{ steps.generate_token.outputs.token }}

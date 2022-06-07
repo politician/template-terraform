@@ -1,5 +1,6 @@
 <!---
-IMPORTANT: Please read our contributing guidelines first (https://github.com/{{repo_owner}}/{{repo_name}}/blob/main/docs/CONTRIBUTING.md).
+⚠️ Please first read our contributing guidelines:
+{{docs_base_url}}/docs/CONTRIBUTING.{{docs_extension}}
 --->
 
 # Pull request
@@ -33,7 +34,7 @@ What types of changes does your code introduce? Put an `x` in all the boxes that
 Go over all the following points, and put an `x` in all the boxes that apply.
 -->
 
-- [ ] I have read the **docs/CONTRIBUTING.md** document.
-- [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes (if applicable).
 - [ ] All new and existing tests passed (if applicable).
+- [ ] I have updated the documentation accordingly.
+- [ ] I have read the [contributing guidelines]({{docs_base_url}}/docs/CONTRIBUTING.{{docs_extension}}) and agree to its terms (namely the [License]({{docs_base_url}}/LICENSE.{{docs_extension}}) and the [Code of Conduct]({{docs_base_url}}/docs/CODE_OF_CONDUCT.{{docs_extension}})).

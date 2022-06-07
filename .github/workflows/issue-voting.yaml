@@ -51,6 +51,9 @@ jobs:
 
             - Please **do** consider contributing with a pull request to resolve this issue.
 
+            - Please **do** follow our
+            [Code of Conduct]({{docs_base_url}}/docs/CODE_OF_CONDUCT.{{docs_extension}}).
+
 
             ## Don'ts
 

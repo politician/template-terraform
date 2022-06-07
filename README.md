@@ -4,12 +4,23 @@
 
 1. Search/replace for these variables:
 
-   - `{{repo_owner}}` (GitHub repository username)
-   - `{{repo_name}}` (GitHub repository name)
-   - `{{project_name}}` (Project name)
-   - `{{project_tagline}}` (Project tagline)
-   - `{{security_email}}` (Email to send vulnerabilities add `-noreply` before the `@`)
-   - `{{author_name}}` (Your name)
+   - `{{repo_owner}}` - GitHub repository username
+   - `{{repo_name}}` - GitHub repository name
+   - `{{project_name}}` - Project name
+   - `{{project_tagline}}` - Project tagline
+   - `{{security_email}}` - Email to send vulnerabilities add `-noreply` before the `@`
+   - `{{author_name}}` - Your name
+   - `{{docs_base_url}}` - Base URL to the documentation (no trailing slash). It could be:
+     - `https://<repo_owner>.github.io/<repo_name>` (GitHub Pages default)
+     - `https://<your_domain>` (GitHub Pages with CNAME file)
+     - `https://github.com/<repo_owner>/<repo_name>/blob/main` (if you removed/don't want the documentation site)
+   - `{{docs_extension}}` - Should be `html` if you use the documentation site, otherwise `md`
+   - `{{forum_url}}` - URL to your forum for users to ask questions. It could be:
+     - `https://github.com/<repo_owner>/<repo_name>/discussions` (if you enabled the discussions feature on your repo)
+     - `https://github.com/orgs/<repo_owner>/discussions` (if you enabled the discussions feature at your org level)
+     - `https://<your_domain>` (if you maintain a separate discussion forum, or a link to your community on Slack, Discord, etc.)
+
+   > For any decent-sized project, it is better to **own** your brand and use your own domain rather than GitHub links.
 
 2. Remove this README.md and move docs/README.md to the root
 
