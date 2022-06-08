@@ -1,19 +1,33 @@
 #--------------------------------------------------------------------------------------------------
-# Configuration
+# This makefile sets the most common targets found in a typical Makefile.
+# It has been initially created for https://github.com/politician/template-repo
+#
+# Copyright 2022 Romain Barissat. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #--------------------------------------------------------------------------------------------------
-JS_INSTALLER := "yarn" # Could be "npm"
+.DEFAULT_GOAL:= build
 
 #--------------------------------------------------------------------------------------------------
-# Computed variables
+# Configuration
 #--------------------------------------------------------------------------------------------------
-.DEFAULT_GOAL := build
-HOMEBREW_INSTALLED := $(shell command -v brew 2> /dev/null)
-JS_INSTALLER_INSTALLED := $(shell command -v $(JS_INSTALLER) 2> /dev/null)
-GIT_URL := $(shell git config --get remote.origin.url)
+JS_INSTALLER:=yarn# Could be "npm"
 
 #--------------------------------------------------------------------------------------------------
 # Setup dev tools and pre-commit hooks
 #--------------------------------------------------------------------------------------------------
+HOMEBREW_INSTALLED:= $(shell command -v brew 2> /dev/null)
+JS_INSTALLER_INSTALLED:= $(shell command -v $(JS_INSTALLER) 2> /dev/null)
 .PHONY: setup
 setup:
 	@echo -- Installing dev dependencies
@@ -211,6 +225,7 @@ docs-run:
 #--------------------------------------------------------------------------------------------------
 # Deploy documentation site
 #--------------------------------------------------------------------------------------------------
+GIT_URL:= $(shell git config --get remote.origin.url)
 .PHONY: docs-deploy
 docs-deploy: docs-build
 	@echo --------------------------------------------------------------------------------
