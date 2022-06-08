@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #--------------------------------------------------------------------------------------------------
-.DEFAULT_GOAL:= build
+.DEFAULT_GOAL:=build
 
 #--------------------------------------------------------------------------------------------------
 # Configuration
@@ -26,8 +26,8 @@ JS_INSTALLER:=yarn# Could be "npm"
 #--------------------------------------------------------------------------------------------------
 # Setup dev tools and pre-commit hooks
 #--------------------------------------------------------------------------------------------------
-HOMEBREW_INSTALLED:= $(shell command -v brew 2> /dev/null)
-JS_INSTALLER_INSTALLED:= $(shell command -v $(JS_INSTALLER) 2> /dev/null)
+HOMEBREW_INSTALLED:=$(shell command -v brew 2> /dev/null)
+JS_INSTALLER_INSTALLED:=$(shell command -v $(JS_INSTALLER) 2> /dev/null)
 .PHONY: setup
 setup:
 	@echo -- Installing dev dependencies
@@ -225,7 +225,7 @@ docs-run:
 #--------------------------------------------------------------------------------------------------
 # Deploy documentation site
 #--------------------------------------------------------------------------------------------------
-GIT_URL:= $(shell git config --get remote.origin.url)
+GIT_URL:=$(shell git config --get remote.origin.url)
 .PHONY: docs-deploy
 docs-deploy: docs-build
 	@echo --------------------------------------------------------------------------------
