@@ -1,4 +1,6 @@
+brew "jq"
 brew "pre-commit"
 brew "tflint"
+brew "tfsec"
 brew "terraform"
 brew "terraform-docs"

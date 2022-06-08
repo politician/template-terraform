@@ -1,8 +1,8 @@
 # -------------------------------------------------------------------------------------------------
-# Inputs
+# Input variables
 # -------------------------------------------------------------------------------------------------
-variable "example" {
+variable "example_input" {
   description = "Example input."
   type        = string
-  default     = "example"
+  default     = "example default value"
 }

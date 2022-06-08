@@ -22,6 +22,9 @@
 # Configuration
 #--------------------------------------------------------------------------------------------------
 JS_INSTALLER:=yarn# Could be "npm"
+SKIP_CHECKOV:=true# Checkov is slow, so skip it by default
+THIS_FILE:=$(lastword $(MAKEFILE_LIST))
+DIR:=.
 
 #--------------------------------------------------------------------------------------------------
 # Setup dev tools and pre-commit hooks
@@ -46,7 +49,7 @@ endif
 
 	pre-commit install --install-hooks -t pre-commit -t commit-msg
 
-	terraform init
+	terraform init $${TERRAFORM_ARGS}
 
 	@echo
 	
@@ -58,7 +61,7 @@ build:
 	@echo --------------------------------------------------------------------------------
 	@echo -- Building project
 	@echo --------------------------------------------------------------------------------
-	terraform init
+	terraform init $${TERRAFORM_ARGS}
 	@echo
 
 #--------------------------------------------------------------------------------------------------
@@ -67,9 +70,26 @@ build:
 .PHONY: clean
 clean: docs-clean
 	@echo --------------------------------------------------------------------------------
-	@echo -- Cleaning up build files
+	@echo -- Cleaning up build/test files
 	@echo --------------------------------------------------------------------------------
-	rm -rf .terraform
+	@rm -rf $(wildcard .terraform ./*/*/.terraform)
+	@rm -f $(wildcard plan.out ./*/*/plan.out)
+	@rm -f $(wildcard plan.out.json ./*/*/plan.out.json)
+	@rm -f $(wildcard plan.out.pretty.json ./*/*/plan.out.pretty.json)
+	@echo done
+	@echo
+
+#--------------------------------------------------------------------------------------------------
+# Remove all build + state files
+#--------------------------------------------------------------------------------------------------
+.PHONY: clean-state
+clean-state: clean
+	@echo --------------------------------------------------------------------------------
+	@echo -- Cleaning up state files
+	@echo --------------------------------------------------------------------------------
+	@rm -f $(wildcard terraform.tfstate ./*/*/terraform.tfstate)
+	@rm -f $(wildcard terraform.tfstate.backup ./*/*/terraform.tfstate.backup)
+	@echo done
 	@echo
 
 #--------------------------------------------------------------------------------------------------
@@ -78,21 +98,102 @@ clean: docs-clean
 .PHONY: lint
 lint:
 	@echo --------------------------------------------------------------------------------
-	@echo -- Linting project files
+	@echo -- Linting project
 	@echo --------------------------------------------------------------------------------
-	terraform fmt .
-	tflint .
+	terraform fmt -recursive $${TERRAFORM_ARGS} $${TERRAFORM_FMT_ARGS}
+	tflint --init --config .config/tflint.hcl $${TFLINT_ARGS}
+	tflint --format=compact --config .config/tflint.hcl $${TFLINT_ARGS}
 	@echo
 
 #--------------------------------------------------------------------------------------------------
-# Run test suites
+# Run ALL test suites (unit tests fo main module and examples, integration tests)
 #--------------------------------------------------------------------------------------------------
 .PHONY: test
-test:
+test: clean lint
+	@$(MAKE) -f $(THIS_FILE) test-static DIR=. SKIP_CHECKOV=false
+	@for example in ./examples/* ; do \
+		$(MAKE) -f $(THIS_FILE) test-static DIR=$${example} SKIP_CHECKOV=false; \
+	done
+
+	@$(MAKE) -f $(THIS_FILE) test-runtime DIR=. SKIP_CHECKOV=false
+	@for example in ./examples/* ; do \
+		$(MAKE) -f $(THIS_FILE) test-runtime DIR=$${example} SKIP_CHECKOV=false; \
+	done
+
+	@$(MAKE) -f $(THIS_FILE) test-integration
+
+#--------------------------------------------------------------------------------------------------
+# Run unit tests for a given module. Use it like:
+# make test-unit DIR=./examples/minimal
+#--------------------------------------------------------------------------------------------------
+.PHONY: test-unit
+test-unit: test-static test-runtime
+
+#--------------------------------------------------------------------------------------------------
+# Static code analysis for a given directory
+#--------------------------------------------------------------------------------------------------
+.PHONY: test-static
+test-static:
 	@echo --------------------------------------------------------------------------------
-	@echo -- Testing project
+	@echo -- Static testing $(DIR)
 	@echo --------------------------------------------------------------------------------
-	@echo "ℹ️  The test step has not been configured yet."
+	tfsec $(DIR) --concise-output $${TFSEC_ARGS}
+	terraform -chdir="$(DIR)" init $${TERRAFORM_ARGS}
+	terraform -chdir="$(DIR)" validate $${TERRAFORM_ARGS}
+	
+ifneq ($(SKIP_CHECKOV),true)
+	checkov $${CHECKOV_ARGS} --quiet --framework terraform -d "$(DIR)"
+endif
+
+	@echo
+
+#--------------------------------------------------------------------------------------------------
+# Run tests for a given directory
+#--------------------------------------------------------------------------------------------------
+.PHONY: test-runtime
+test-runtime:
+	@echo --------------------------------------------------------------------------------
+	@echo -- Runtime testing $(DIR)
+	@echo --------------------------------------------------------------------------------
+	terraform -chdir="$(DIR)" init $${TERRAFORM_ARGS}
+	terraform -chdir="$(DIR)" plan $${TERRAFORM_ARGS} -input=false -out="plan.out"
+
+ifneq ($(SKIP_CHECKOV),true)
+	terraform -chdir="$(DIR)" show $${TERRAFORM_ARGS} -json "plan.out" > "$(DIR)/plan.out.json"
+ifeq ($(GITHUB_ACTIONS),true)
+# A weird GH actions bug injects actions metadata in the output so we filter only the lines containing JSON
+	grep '^{"' "$(DIR)/plan.out.json" | jq . > "$(DIR)/plan.out.pretty.json"
+else
+	cat "$(DIR)/plan.out.json" | jq . > "$(DIR)/plan.out.pretty.json"
+endif
+	checkov $${CHECKOV_ARGS} --quiet --framework terraform_plan --repo-root-for-plan-enrichment . --file "$(DIR)/plan.out.pretty.json" --config-file .config/checkov.yml
+endif
+	
+	@echo
+
+#--------------------------------------------------------------------------------------------------
+# Run integration tests
+#--------------------------------------------------------------------------------------------------
+GOTESTSUM_INSTALLED := $(shell command -v gotestsum 2> /dev/null)
+.PHONY: test-integration
+test-integration:
+	@echo --------------------------------------------------------------------------------
+	@echo -- Integration testing
+	@echo --------------------------------------------------------------------------------
+	terraform test $${TERRAFORM_ARGS}
+
+ifneq ($(strip $(GO_TESTS)),)
+ifdef GOTESTSUM_INSTALLED
+	cd ./tests \
+	&& go mod tidy \
+	&& gotestsum --format testname --max-fails 1
+else
+	cd ./tests \
+	&& go mod tidy \
+	&& go test -v -timeout 30m
+endif
+endif
+	
 	@echo
 
 #--------------------------------------------------------------------------------------------------

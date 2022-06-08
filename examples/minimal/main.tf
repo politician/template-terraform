@@ -1,14 +1,17 @@
 # -------------------------------------------------------------------------------------------------
-# Computations
+# Use module
 # -------------------------------------------------------------------------------------------------
-locals {
-  example_local = var.example_input
+module "minimal" {
+  source = "../.."
+
+  # Input variables
+  example_input = "hello world"
 }
 
 # -------------------------------------------------------------------------------------------------
 # Output variables
 # -------------------------------------------------------------------------------------------------
-output "example_output" {
-  description = "Example output."
-  value       = local.example_local
+output "example_outputs" {
+  description = "Example module outputs."
+  value       = module.minimal
 }

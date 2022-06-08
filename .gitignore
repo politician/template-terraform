@@ -67,3 +67,8 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Terraform tests output
+plan.out
+plan.out.json
+plan.out.pretty.json

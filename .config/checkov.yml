@@ -1,0 +1,10 @@
+output: cli
+compact: true
+download-external-modules: true
+evaluate-variables: true
+external-modules-download-path: .external_modules
+framework: all
+soft-fail: false
+# skip-check:
+#   - CKV_SECRET_6
+#   - CKV_GIT_1

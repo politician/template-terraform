@@ -1,0 +1,201 @@
+# -------------------------------------------------------------------------------------------------
+# This workflow will run continuous integration tests on the Terraform module.
+# -------------------------------------------------------------------------------------------------
+---
+name: ci
+
+permissions:
+  contents: read
+  statuses: write
+
+on:
+  pull_request_target:
+  push:
+    branches:
+      - main
+
+env:
+  TERRAFORM_ARGS: -no-color
+  TERRAFORM_FMT_ARGS: -check
+  TFLINT_ARGS: --no-color
+  TFSEC_ARGS: --no-color
+
+jobs:
+  # -----------------------------------------------------------------------------------------------
+  # Dynamic matrix
+  # Compute how subsequent jobs will run in parallel
+  # -----------------------------------------------------------------------------------------------
+  matrix:
+    name: Generate testing matrix
+    runs-on: ubuntu-latest
+    outputs:
+      minVersion: ${{ steps.minMax.outputs.minVersion }}
+      maxVersion: ${{ steps.minMax.outputs.maxVersion }}
+      units: ${{ steps.units.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Terraform min/max versions
+        id: minMax
+        uses: clowdhaus/terraform-min-max@v1.0.8
+
+      - name: Units
+        id: units
+        run: >
+          echo "::set-output name=matrix::[$(
+            matrix=(. $(ls -d examples/*/));
+            printf '"%s",' "${matrix[@]}"
+          )]"
+
+  # -----------------------------------------------------------------------------------------------
+  # Unit testing
+  # Static code analysis, linting, security scanning, dry-runs
+  # No real resources are deployed
+  # -----------------------------------------------------------------------------------------------
+  unit:
+    name: Unit testing
+    needs: matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        path: ${{ fromJSON(needs.matrix.outputs.units) }}
+        version:
+          - ${{ needs.versionExtract.outputs.minVersion }}
+          - ${{ needs.versionExtract.outputs.maxVersion }}
+    env:
+      DIR: ${{ matrix.path }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install Terraform v${{ matrix.version }}
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ matrix.version }}
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v1
+
+      - name: Setup TFSec
+        run: brew install tfsec
+
+      - name: Setup Checkov
+        run: pip3 install -U checkov
+        # run: export alias checkov="docker run -v \"$(DIR):$(DIR)\" bridgecrew/checkov"
+
+      - name: Run static tests
+        run: make test-static SKIP_CHECKOV=false
+
+      - name: Runtime tests
+        run: make test-runtime SKIP_CHECKOV=false
+        if: >
+          github.event_name == 'push' || (
+            github.event.pull_request.head.repo.full_name == github.repository
+            && github.actor != 'dependabot[bot]'
+          )
+
+  # -----------------------------------------------------------------------------------------------
+  # Integration testing
+  # Real resources are deployed
+  # Doesn't run for PRs from forked repositories for security reasons
+  # -----------------------------------------------------------------------------------------------
+  integration:
+    name: Integration test
+    if: >
+      github.event_name == 'push' || (
+        github.event.pull_request.head.repo.full_name == github.repository
+        && github.actor != 'dependabot[bot]'
+        && github.actor != 'renovate[bot]'
+        && github.actor != 'renovate-bot'
+      )
+    needs: matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - ${{ needs.versionExtract.outputs.minVersion }}
+          - ${{ needs.versionExtract.outputs.maxVersion }}
+    env:
+      DIR: ${{ matrix.path }}
+      # TF_VAR_xxx: ${{ secrets.CI_xxx }}
+      # TF_VAR_xyz: xyz
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Gotestsum
+        run: go install gotest.tools/gotestsum@latest
+
+      - name: Run integration test
+        run: make test-integration
+
+  # -----------------------------------------------------------------------------------------------
+  # Finalizers
+  # These are used to determine how successful was each test suite
+  # It simplifies management of required status checks
+  # -----------------------------------------------------------------------------------------------
+  unit-finalizer:
+    name: Passed all unit tests
+    if: always()
+    runs-on: ubuntu-latest
+    needs: unit
+    steps:
+      - name: All tests passed successfully ✅
+        if: needs.unit.result == 'success'
+        run: exit 0
+
+      - name: Some tests failed ❌
+        if: needs.unit.result != 'success'
+        run: exit 1
+
+  integration-finalizer:
+    name: Passed all integration tests
+    if: always()
+    runs-on: ubuntu-latest
+    needs: integration
+    steps:
+      - name: All tests passed successfully ✅
+        if: needs.integration.result == 'success'
+        run: exit 0
+
+      - name: Integration testing was skipped
+        if: needs.integration.result == 'skipped'
+        run: exit 0
+
+      - name: Some tests failed ❌
+        if: >
+          needs.integration.result != 'success'
+          && needs.integration.result != 'skipped'
+        run: exit 1
+
+  e2e-finalizer:
+    name: Passed all end-to-end tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: E2E testing is part of integration testing
+        run: exit 0
+
+  finalizer:
+    name: Passed all CI tests
+    if: always()
+    runs-on: ubuntu-latest
+    needs: [unit-finalizer, integration-finalizer, e2e-finalizer]
+    steps:
+      - name: All tests passed successfully ✅
+        if: >
+          needs.unit-finalizer.result == 'success'
+          && needs.integration-finalizer.result == 'success'
+          && needs.e2e-finalizer.result == 'success'
+        run: exit 0
+
+      - name: Some tests failed ❌
+        if: >
+          needs.unit-finalizer.result != 'success'
+          || needs.integration-finalizer.result != 'success'
+          || needs.e2e-finalizer.result != 'success'
+        run: exit 1

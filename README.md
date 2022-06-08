@@ -65,4 +65,21 @@ You can pick between [Renovate](https://docs.renovatebot.com/) (recommended) or 
 
 Just remove the file `.github/renovate.json`.
 
+## Tests
+
+### Unit tests
+
+This template comes with two types of unit tests: **static code analysis** and **runtime tests** using various tools.
+
+Unit tests are performed on the main module and on each example (eg. `./examples/minimal`)
+
+### Integration tests
+
+This template comes with two ways to test your module actually running `terraform apply` (and `terraform destroy`). Pick the one you prefer and delete the other one:
+
+- Using [Terratest](https://terratest.gruntwork.io/): `./tests/minimal_test.go`
+- Using [Terraform tests (experimental)](https://www.terraform.io/language/modules/testing-experiment): `./tests/minimal`
+
+> No actual `terraform apply` is run on the `./examples/*` because the two ways above are more suited for actually testing the output.
+
 </span>
