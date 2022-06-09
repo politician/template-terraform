@@ -1,3 +1,4 @@
+brew "go"
 brew "jq"
 brew "pre-commit"
 brew "tflint"

@@ -1,4 +1,4 @@
-module github.com/politician/template-repo
+module github.com/{{repo_owner}}/{{repo_name}}
 
 go 1.18
 

@@ -76,7 +76,8 @@ clean: docs-clean
 	@rm -f $(wildcard plan.out ./*/*/plan.out)
 	@rm -f $(wildcard plan.out.json ./*/*/plan.out.json)
 	@rm -f $(wildcard plan.out.pretty.json ./*/*/plan.out.pretty.json)
-	@echo done
+	@rm -f $(wildcard ./tests/*/.terraform.lock.hcl)
+	@echo Done.
 	@echo
 
 #--------------------------------------------------------------------------------------------------
@@ -89,7 +90,7 @@ clean-state: clean
 	@echo --------------------------------------------------------------------------------
 	@rm -f $(wildcard terraform.tfstate ./*/*/terraform.tfstate)
 	@rm -f $(wildcard terraform.tfstate.backup ./*/*/terraform.tfstate.backup)
-	@echo done
+	@echo Done.
 	@echo
 
 #--------------------------------------------------------------------------------------------------

@@ -34,7 +34,7 @@ jspm_packages/
 .pnp.*
 
 # Local .terraform directories
-**/.terraform/*
+**/.terraform/
 
 # .tfstate files
 *.tfstate
@@ -72,3 +72,4 @@ terraform.rc
 plan.out
 plan.out.json
 plan.out.pretty.json
+/tests/*/.terraform.lock.hcl
