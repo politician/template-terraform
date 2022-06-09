@@ -175,6 +175,7 @@ endif
 # Run integration tests
 #--------------------------------------------------------------------------------------------------
 GOTESTSUM_INSTALLED := $(shell command -v gotestsum 2> /dev/null)
+GO_TESTS:=$(shell find ./tests -maxdepth 1 -name '*_test.go' -print -quit)
 .PHONY: test-integration
 test-integration:
 	@echo --------------------------------------------------------------------------------

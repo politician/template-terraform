@@ -104,13 +104,13 @@ jobs:
   # -----------------------------------------------------------------------------------------------
   integration:
     name: Integration tests
+    needs: [matrix]
+    runs-on: ubuntu-latest
     if: >
       github.event_name == 'push' || (
         github.event.pull_request.head.repo.full_name == github.repository
         && github.actor != 'dependabot[bot]'
       )
-    needs: [matrix]
-    runs-on: ubuntu-latest
 
     # env:
     #   TF_VAR_xxx: ${{ secrets.CI_xxx }}
@@ -124,8 +124,16 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: ${{ needs.matrix.outputs.maxVersion }}
+          terraform_wrapper: false
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        if: hashFiles('tests/go.mod') != ''
+        with:
+          go-version-file: "tests/go.mod"
 
       - name: Setup Gotestsum
+        if: hashFiles('tests/go.mod') != ''
         run: go install gotest.tools/gotestsum@latest
 
       - name: Run integration test
