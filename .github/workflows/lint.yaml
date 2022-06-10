@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------------------------------
-# This workflow lints the codebase.
+# This GitHub Actions workflow lints the codebase.
 #
 # This file has been initially created for https://github.com/politician/template-repo
 #
@@ -24,7 +24,7 @@ permissions:
   statuses: write
 
 on:
-  pull_request_target:
+  pull_request:
   workflow_dispatch:
   push:
 
