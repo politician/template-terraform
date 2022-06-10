@@ -1,6 +1,7 @@
 # -------------------------------------------------------------------------------------------------
 # This workflow executes continuous integration tests on the Terraform module.
-# It has been initially created for https://github.com/politician/template-terraform
+#
+# This file has been initially created for https://github.com/politician/template-terraform
 #
 # Copyright 2022 Romain Barissat. All rights reserved.
 #
