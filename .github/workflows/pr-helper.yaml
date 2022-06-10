@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------------------------------
-# This workflow comments on each new PR with a link to explain the PR process.
+# This GitHub Actions workflow comments on each new PR with a link to explain the PR process.
 #
 # This file has been initially created for https://github.com/politician/template-repo
 #

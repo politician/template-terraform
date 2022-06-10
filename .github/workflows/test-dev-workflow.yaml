@@ -1,5 +1,6 @@
 # -------------------------------------------------------------------------------------------------
-# This workflow tests dev tools when a dependency is updated or when new code is pushed.
+# This GitHub Actions workflow performs a typical developer workflow when a dependency is updated
+# or when new code is pushed to identify potential breaking changes to the developer toolchain.
 #
 # This file has been initially created for https://github.com/politician/template-repo
 #

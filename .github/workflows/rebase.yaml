@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------------------------------
-# This workflow allows users of this repo to automatically rebase their PR.
+# This GitHub Actions workflow allows users of this repo to automatically rebase their PR.
 #
 # This file has been initially created for https://github.com/politician/template-repo
 #
