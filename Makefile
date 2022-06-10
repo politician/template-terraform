@@ -1,6 +1,7 @@
-#--------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
 # This makefile sets the most common targets found in a typical Makefile.
-# It has been initially created for https://github.com/politician/template-repo
+#
+# This file has been initially created for https://github.com/politician/template-repo
 #
 # Copyright 2022 Romain Barissat. All rights reserved.
 #
@@ -15,7 +16,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#--------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------
 .DEFAULT_GOAL:=build
 
 #--------------------------------------------------------------------------------------------------
@@ -36,7 +37,8 @@ setup:
 	@echo -- Installing dev dependencies
 
 ifdef HOMEBREW_INSTALLED
-	brew bundle
+	@echo "Do you want to install dependencies with Homebrew? [Y/n] "; read ANSWER; \
+	if [[ $${ANSWER:-Y} == Y ]]; then brew bundle; fi;
 else
 	@echo "Homebrew is not installed. Skipping automated dependencies installation."
 endif
@@ -304,6 +306,8 @@ docs-deploy: docs-build
 	@echo --------------------------------------------------------------------------------
 	@echo -- Deploying documentation site
 	@echo --------------------------------------------------------------------------------
+	@$(shell [[ -e "CNAME" ]] && cp "CNAME" ".vitepress/dist/CNAME")
+	@$(shell [[ -e "docs/CNAME" ]] && cp "docs/CNAME" ".vitepress/dist/CNAME")
 ifeq ($(GITHUB_ACTIONS),true)
 	@echo Running in GitHub Actions environment.
 	cd .vitepress/dist\
