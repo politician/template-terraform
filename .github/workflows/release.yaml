@@ -1,7 +1,8 @@
 # -------------------------------------------------------------------------------------------------
-# This workflow will open a PR with an up-to-date changelog and README.
+# This GitHub Actions workflow will open a PR with an up-to-date changelog and README.
 # The PR can be merged manually at any time which will trigger a new release.
-# It has been initially created for https://github.com/politician/template-terraform
+#
+# This file has been initially created for https://github.com/politician/template-terraform
 #
 # Copyright 2022 Romain Barissat. All rights reserved.
 #

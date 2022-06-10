@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------------------------------
-# This workflow executes continuous integration tests on the Terraform module.
+# This GitHub Actions workflow executes continuous integration tests on the Terraform module.
 #
 # This file has been initially created for https://github.com/politician/template-terraform
 #

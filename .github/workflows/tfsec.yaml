@@ -1,5 +1,6 @@
 # -------------------------------------------------------------------------------------------------
-# This workflow integrates with Github Security alerts to include the output of tfsec
+# This GitHub Actions workflow integrates with Github Security alerts to include the output
+# of tfsec.
 #
 # This file has been initially created for https://github.com/politician/template-terraform
 #
