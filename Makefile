@@ -23,6 +23,7 @@
 # Configuration
 #--------------------------------------------------------------------------------------------------
 JS_INSTALLER:=yarn# Could be "npm"
+THIS_FILE:=$(lastword $(MAKEFILE_LIST))
 
 #--------------------------------------------------------------------------------------------------
 # Setup dev tools and pre-commit hooks
@@ -34,8 +35,12 @@ setup:
 	@echo -- Installing dev dependencies
 
 ifdef HOMEBREW_INSTALLED
+ifeq ($(CI),true)
+	brew bundle
+else
 	@echo "Do you want to install dependencies with Homebrew? [Y/n] "; read ANSWER; \
 	if [[ $${ANSWER:-Y} == Y ]]; then brew bundle; fi;
+endif
 else
 	@echo "Homebrew is not installed. Skipping automated dependencies installation."
 endif
@@ -87,9 +92,20 @@ lint:
 # Run test suites
 #--------------------------------------------------------------------------------------------------
 .PHONY: test
-test:
+test: test-unit test-integration
+
+.PHONY: test-unit
+test-unit:
 	@echo --------------------------------------------------------------------------------
-	@echo -- Testing project
+	@echo -- Unit testing
+	@echo --------------------------------------------------------------------------------
+	@echo "ℹ️  The test step has not been configured yet."
+	@echo
+
+.PHONY: test-integration
+test-integration:
+	@echo --------------------------------------------------------------------------------
+	@echo -- Integration testing
 	@echo --------------------------------------------------------------------------------
 	@echo "ℹ️  The test step has not been configured yet."
 	@echo
@@ -106,7 +122,7 @@ debug:
 	@echo
 
 #--------------------------------------------------------------------------------------------------
-# Watch {{project_name}} for changes
+# Run {{project_name}} and watch for changes
 #--------------------------------------------------------------------------------------------------
 .PHONY: watch
 watch:
@@ -236,7 +252,6 @@ docs-deploy: docs-build
 	@$(shell [[ -e "CNAME" ]] && cp "CNAME" ".vitepress/dist/CNAME")
 	@$(shell [[ -e "docs/CNAME" ]] && cp "docs/CNAME" ".vitepress/dist/CNAME")
 ifeq ($(GITHUB_ACTIONS),true)
-	@echo Running in GitHub Actions environment.
 	cd .vitepress/dist\
 	&& git init --initial-branch gh-pages\
 	&& git remote add origin https://x-access-token:$(GITHUB_TOKEN)@github.com/$(GITHUB_REPOSITORY)\
@@ -250,4 +265,26 @@ else
 	&& git commit --message 'chore: deploy documentation site'\
 	&& git push --force $(GIT_URL) gh-pages:gh-pages
 endif
+	@echo
+
+#--------------------------------------------------------------------------------------------------
+# Test a typical developer workflow by running all non-destructive commands.
+# These are commands that don't change a remote state (eg. deploy) nor hang the shell (eg. watch).
+#--------------------------------------------------------------------------------------------------
+.PHONY: test-dev-workflow
+test-dev-workflow: setup lint build test-unit install uninstall docs-build docs-clean clean
+	@echo --------------------------------------------------------------------------------
+	@echo -- Testing dev workflow
+	@echo --------------------------------------------------------------------------------
+	@git stash || true
+
+	temp_file=$$(mktemp ./XXXX) \
+		&& echo "Test\n" > $$temp_file \
+		&& git add $$temp_file \
+		&& git commit -m"chore: test dev workflow" \
+		&& git reset --soft HEAD^ \
+		&& git restore --staged $$temp_file \
+		&& rm -f $$temp_file
+
+	@git stash apply --index || true
 	@echo
