@@ -92,7 +92,7 @@ jobs:
           terraform_version: ${{ matrix.version }}
 
       - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v1
+        uses: terraform-linters/setup-tflint@v2
 
       - name: Setup TFSec
         run: brew install tfsec
