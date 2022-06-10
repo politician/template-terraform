@@ -173,7 +173,7 @@ ifeq ($(GITHUB_ACTIONS),true)
 else
 	cat "$(DIR)/plan.out.json" | jq . > "$(DIR)/plan.out.pretty.json"
 endif
-	checkov $${CHECKOV_ARGS} --quiet --framework terraform_plan --repo-root-for-plan-enrichment . --file "$(DIR)/plan.out.pretty.json" --config-file .config/checkov.yml
+	checkov $${CHECKOV_ARGS} --quiet --framework terraform_plan --repo-root-for-plan-enrichment . --file "$(DIR)/plan.out.pretty.json" --config-file .config/checkov.yaml
 endif
 	
 	@echo
@@ -333,7 +333,7 @@ endif
 # These are commands that don't change a remote state (eg. deploy) nor hang the shell (eg. watch).
 #--------------------------------------------------------------------------------------------------
 .PHONY: test-dev-workflow
-test-dev-workflow: setup lint build test-unit install uninstall docs-build docs-clean clean
+test-dev-workflow: setup lint build test-unit docs-build docs-clean clean
 	@echo --------------------------------------------------------------------------------
 	@echo -- Testing dev workflow
 	@echo --------------------------------------------------------------------------------
