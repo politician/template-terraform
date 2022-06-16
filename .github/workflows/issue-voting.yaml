@@ -47,7 +47,7 @@ jobs:
           # organization: ${{ github.repository_owner }}
 
       - name: Add voting reactions to issue
-        uses: aidan-mundy/react-to-issue@b189f43a4686d4183c80c957dbcec07a720be261
+        uses: aidan-mundy/react-to-issue@2ab0fbfd1254c37e614247315bcd21918b912ab1
         with:
           issue-number: ${{github.event.issue.number}}
           reactions: +1, -1
