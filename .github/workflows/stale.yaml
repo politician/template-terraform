@@ -52,7 +52,7 @@ jobs:
           # organization: ${{ github.repository_owner }}
 
       - name: No priority specified
-        uses: actions/stale@v5
+        uses: actions/stale@v6
         with:
           repo-token: ${{ steps.generate_token.outputs.token }}
           days-before-stale: 60
@@ -69,7 +69,7 @@ jobs:
             It will be closed in **one week** unless there is some new activity.
 
       - name: Low-priority
-        uses: actions/stale@v5
+        uses: actions/stale@v6
         with:
           repo-token: ${{ steps.generate_token.outputs.token }}
           only-labels: low-priority
@@ -85,7 +85,7 @@ jobs:
             It will be closed in **one week** unless there is some new activity.
 
       - name: Medium-priority
-        uses: actions/stale@v5
+        uses: actions/stale@v6
         with:
           repo-token: ${{ steps.generate_token.outputs.token }}
           only-labels: medium-priority
@@ -101,7 +101,7 @@ jobs:
             It will be closed in **two weeks** unless there is some new activity.
 
       - name: High-priority
-        uses: actions/stale@v5
+        uses: actions/stale@v6
         with:
           repo-token: ${{ steps.generate_token.outputs.token }}
           only-labels: high-priority
