@@ -14,7 +14,7 @@ repos:
       #   args: [--branch, main]
 
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v1.3.0
+    rev: v2.1.1
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
