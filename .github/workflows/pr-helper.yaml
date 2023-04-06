@@ -48,7 +48,7 @@ jobs:
           # organization: ${{ github.repository_owner }}
 
       - name: Comment on issue
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v3
         with:
           issue-number: ${{github.event.pull_request.number}}
           body: >
