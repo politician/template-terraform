@@ -88,7 +88,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Terraform v${{ matrix.version }}
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ matrix.version }}
 
@@ -137,7 +137,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Terraform v${{ needs.matrix.outputs.maxVersion }}
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ needs.matrix.outputs.maxVersion }}
           terraform_wrapper: false
