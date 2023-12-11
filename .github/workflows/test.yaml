@@ -143,7 +143,7 @@ jobs:
           terraform_wrapper: false
 
       - name: Setup Go
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@v5
         if: hashFiles('tests/go.mod') != ''
         with:
           go-version-file: "tests/go.mod"
