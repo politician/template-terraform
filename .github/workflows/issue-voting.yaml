@@ -54,7 +54,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
 
       - name: Comment on issue
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{github.event.issue.number}}
           body: >
@@ -90,7 +90,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
 
       - name: Comment on issue
-        uses: peter-evans/create-or-update-comment@v2
+        uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{github.event.issue.number}}
           body: >
