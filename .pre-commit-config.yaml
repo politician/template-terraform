@@ -20,7 +20,7 @@ repos:
         stages: [commit-msg]
 
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.16.0
+    rev: 0.29.4
     hooks:
       - id: check-dependabot
       - id: check-github-actions
